@@ -13,8 +13,10 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,10 +28,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.demo.ble.BleViewModel
-import com.example.demo.ui.navigation.Routes
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun USBplaySection(vm: BleViewModel){
+
+    var showFileList by remember { mutableStateOf(false) }
+
     SettingSection(title="USB play") {
         var isPlaying by remember { mutableStateOf(false) }
 
@@ -65,8 +70,17 @@ fun USBplaySection(vm: BleViewModel){
 
             Spacer(modifier = Modifier.width(24.dp)) //  버튼 간격
 
-//            IconButtonStyle("File Play", Icons.Default.Menu,
-//                onClick = {nav.navigate(Routes.FileList)})
+            IconButtonStyle("File Play", Icons.Default.Menu) {
+                showFileList = true
+            }
+        }
+
+        if (showFileList) {
+            ModalBottomSheet(
+                onDismissRequest = { showFileList = false }
+            ) {
+                FileListScreen(vm = vm)
+            }
         }
     }
 }

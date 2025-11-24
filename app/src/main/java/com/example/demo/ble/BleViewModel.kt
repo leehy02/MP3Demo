@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
 class BleViewModel(private val context: Context) : ViewModel() {
 
     // ✅✅✅-----------------리스트 추가하기
-//    private val _fileList = MutableStateFlow<List<FileEntry>>(emptyList())
-//    val fileList: StateFlow<List<FileEntry>> = _fileList
+    private val _fileList = MutableStateFlow<List<FileEntry>>(emptyList())
+    val fileList: StateFlow<List<FileEntry>> = _fileList
 
     // ✅ ESP32 쪽에서 사용한 Service / Characteristic UUID 로 교체해야 함
     private val SERVICE_UUID = java.util.UUID.fromString("e49a25f8-f69a-11e8-8eb2-f2801f1b9fd1")
@@ -55,25 +55,25 @@ class BleViewModel(private val context: Context) : ViewModel() {
     private val eqWriteQueue: ArrayDeque<ByteArray> = ArrayDeque()
     @Volatile private var eqWorkerRunning = false
 
-//    /** 우선 UI 확인용 더미 데이터 넣기 */
-//    fun putDummyList() {
-//        _fileList.value = listOf(
-//            FileEntry(0, "MUSIC01.MP3"),
-//            FileEntry(1, "MUSIC02.MP3"),
-//            FileEntry(2, "LIVE_TRACK.AAC")
-//        )
-//    }
-//
-//    /** 나중에 실제로 MCU에 ‘리스트 주세요(0xF1)’ 보낼 함수 자리 */
-//    fun requestFileList() {
-//        _fileList.value = emptyList()
-//        // TODO: BLE write(byteArrayOf(0xF1)) 붙일 예정
-//    }
-//
-//    /** 항목을 탭하면 MCU에 ‘재생(0xF2)’ 보낼 함수 자리 */
-//    fun playFile(fileNum: Int) {
-//        // TODO: BLE write(byteArrayOf(0xF2, fileNum.toByte(), fileNum.toByte())) 붙일 예정
-//    }
+    /** 우선 UI 확인용 더미 데이터 넣기 */
+    fun putDummyList() {
+        _fileList.value = listOf(
+            FileEntry(0, "MUSIC01.MP3"),
+            FileEntry(1, "MUSIC02.MP3"),
+            FileEntry(2, "LIVE_TRACK.AAC")
+        )
+    }
+
+    /** 나중에 실제로 MCU에 ‘리스트 주세요(0xF1)’ 보낼 함수 자리 */
+    fun requestFileList() {
+        _fileList.value = emptyList()
+        // TODO: BLE write(byteArrayOf(0xF1)) 붙일 예정
+    }
+
+    /** 항목을 탭하면 MCU에 ‘재생(0xF2)’ 보낼 함수 자리 */
+    fun playFile(fileNum: Int) {
+        // TODO: BLE write(byteArrayOf(0xF2, fileNum.toByte(), fileNum.toByte())) 붙일 예정
+    }
 
     /** 🔹 스캔 시작 (10초 후 자동 중지) */
     @SuppressLint("MissingPermission")

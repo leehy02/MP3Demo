@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.demo.ble.BleViewModel
-//import com.example.demo.ui.navigation.AppNavHost
 
 class MainActivity : ComponentActivity() {
 
@@ -31,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DemoTheme {
                 MaterialTheme {
-                    AudioScreen(vm = vm)   // ✅ 여기서 넘겨주기
+                    AudioScreen(vm = vm)
                 }
             }
         }

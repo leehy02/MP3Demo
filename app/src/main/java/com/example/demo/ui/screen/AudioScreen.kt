@@ -17,10 +17,6 @@ import androidx.compose.ui.unit.sp
 import com.example.demo.ble.BleSection
 import com.example.demo.ble.BleViewModel
 import com.example.demo.ui.theme.GmarketSans
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-
 
 @Composable
 fun AudioScreen(vm: BleViewModel) {
