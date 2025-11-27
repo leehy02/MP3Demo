@@ -1,9 +1,11 @@
 import org.gradle.kotlin.dsl.implementation
+import org.gradle.kotlin.dsl.kapt
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -61,4 +63,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // ------------------------------------------------------
+    // ✅ Room Database 추가
+    // ------------------------------------------------------
+    val roomVersion = "2.6.1"  // 추가
+
+    implementation("androidx.room:room-runtime:$roomVersion")   // 추가
+    implementation("androidx.room:room-ktx:$roomVersion")        // 추가
+    kapt("androidx.room:room-compiler:$roomVersion")             // 추가
 }

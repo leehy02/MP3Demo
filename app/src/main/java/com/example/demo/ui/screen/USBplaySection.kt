@@ -70,14 +70,23 @@ fun USBplaySection(vm: BleViewModel){
 
             Spacer(modifier = Modifier.width(24.dp)) //  버튼 간격
 
-            IconButtonStyle("File Play", Icons.Default.Menu) {
-                showFileList = true
-            }
+            IconButtonStyle(
+                content = "File Play",
+                image = Icons.Default.Menu,
+                onClick =
+                {
+                    //vm.sendCommand_test(0x01,0x01)
+                    showFileList = true
+                }
+            )
         }
 
         if (showFileList) {
             ModalBottomSheet(
-                onDismissRequest = { showFileList = false }
+                onDismissRequest = {
+                    showFileList = false
+                    //vm.clearFileEntries()
+                }
             ) {
                 FileListScreen(vm = vm)
             }
