@@ -208,6 +208,15 @@ class BleViewModel(private val context: Context) : ViewModel() {
             gatt?.disconnect()
             gatt?.close()
             Log.i("BLE_test", "🔌 GATT 연결 끊김")
+
+            viewModelScope.launch(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    "연결이 끊어졌습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         } catch (e: Exception) {
             Log.e("BLE_test", "❌ disconnect 중 오류: ${e.message}")
         } finally {
@@ -251,12 +260,31 @@ class BleViewModel(private val context: Context) : ViewModel() {
                         Log.i("BLE_test", "✅ GATT 연결 성공, 서비스 탐색 시작")
                         this@BleViewModel.gatt = gatt
                         gatt.discoverServices()
+
+                        viewModelScope.launch(Dispatchers.Main) {
+                            Toast.makeText(
+                                context,
+                                "${device.name} 연결되었습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
+
+
 
                     BluetoothProfile.STATE_DISCONNECTED -> {
                         Log.w("BLE_test", "🛑 GATT 연결 해제됨")
                         this@BleViewModel.gatt = null
                         writeChar = null
+
+                        viewModelScope.launch(Dispatchers.Main) {
+                            Toast.makeText(
+                                context,
+                                "연결이 끊어졌습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
                     }
                 }
             }
